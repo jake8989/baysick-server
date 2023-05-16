@@ -61,7 +61,7 @@ router.delete(
 		try {
 			if (req.user.role == 'ADMIN') {
 				const product = await Product.findOne({ product_id: product_id });
-				console.log(product);
+				// console.log(product);
 				if (product) {
 					await Product.findOneAndDelete({ product_id: product_id });
 					res.json({ message: 'product deleted sucessfully' });

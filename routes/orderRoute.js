@@ -83,6 +83,7 @@ router.put(
 			paymentStatus,
 			modeOfPayment,
 			phone,
+			totalAmount,
 			pincode,
 			AreaColony,
 			city,
@@ -91,12 +92,14 @@ router.put(
 		} = req.body;
 		try {
 			if (req.user.role == 'ADMIN') {
-				const order = await Product.findOne({ orderId: orderId });
-				console.log(order);
+				// console.log('admin');
+				const order = await Orders.findOne({ orderId: orderId });
+				// console.log(order);
 				if (order) {
 					order.paymentStatus = paymentStatus;
 					order.modeOfPayment = modeOfPayment;
 					order.phone = phone;
+					order.totalAmount = totalAmount;
 					order.pincode = pincode;
 					order.AreaColony = AreaColony;
 					order.city = city;
