@@ -3,6 +3,15 @@ const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/productModel');
 const { protect } = require('../middlewares/auth');
+router.get(
+	'/products',
+	protect,
+	asyncHandler(async (req, res) => {
+		const products = await Product.find({});
+
+		res.status(200).json({ products });
+	})
+);
 router.post(
 	'/add-product',
 	protect,
@@ -71,25 +80,14 @@ router.put(
 	'/update-product',
 	protect,
 	asyncHandler(async (req, res) => {
-		const {
-			product_id,
-			type,
-			img_url,
-			title,
-			price,
-			sizes,
-			offer,
-			product_color,
-			discription,
-			manufacturer,
-			views_img,
-			rating,
-		} = req.body;
+		const { product_id, type, img_url, title, price, offer, discription } =
+			req.body;
 		try {
 			if (req.user.role == 'ADMIN') {
 				const product = await Product.findOne({ product_id: product_id });
 				console.log(product);
 				if (product) {
+					product.title = title;
 					product.type = type;
 					product.img_url = img_url;
 					product.price = price;

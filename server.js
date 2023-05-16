@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', require('./routes/userRoute'));
 app.use('/api/products', require('./routes/productRoute'));
+app.use('/api/orders', require('./routes/orderRoute'));
 app.use(errorHandeler);
 app.listen(port, () => {
 	console.log(`server is listing at port ${port}`);

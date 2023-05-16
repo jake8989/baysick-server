@@ -11,6 +11,9 @@ const productSchema = mongoose.Schema(
 			type: String,
 			default: 'T-SHIRT',
 		},
+		dateAvailable: {
+			type: String,
+		},
 		img_url: {
 			type: String,
 			required: true,
