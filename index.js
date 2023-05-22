@@ -5,15 +5,12 @@ const connectDb = require('./config/db');
 const { errorHandeler } = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoute');
 const app = express();
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-const cors = require('cors');
 const port = process.env.PORT || 8080;
-app.use(
-	cors({
-		allowedHeaders: ['Authorization', 'Content-Type'],
-	})
-);
+// const cookieParser = require('cookie-parser');
+// app.use(cookieParser());
+const cors = require('cors');
+
+app.use(cors());
 connectDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
