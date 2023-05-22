@@ -11,7 +11,11 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 connectDb();
 app.use(express.json());
-app.use(cors());
+app.use(
+	cors({
+		origin: 'https://drab-cyan-raven-shoe.cyclic.app',
+	})
+);
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', require('./routes/userRoute'));
 app.use('/api/products', require('./routes/productRoute'));
