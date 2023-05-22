@@ -13,7 +13,7 @@ connectDb();
 app.use(express.json());
 app.use(
 	cors({
-		origin: 'https://drab-cyan-raven-shoe.cyclic.app',
+		origin: 'https://baysick-client-qvls0s782-jake8989.vercel.app',
 	})
 );
 app.use(express.urlencoded({ extended: false }));
