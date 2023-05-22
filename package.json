@@ -4,8 +4,8 @@
 	"description": "baysick server",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
-		"watch": "nodemon server.js"
+		"start": "node index.js",
+		"watch": "nodemon index.js"
 	},
 	"author": "team",
 	"license": "MIT",
