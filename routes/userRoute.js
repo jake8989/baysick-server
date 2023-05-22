@@ -48,7 +48,7 @@ router.post(
 );
 router.post(
 	'/login',
-	protect,
+	// protect,
 	asyncHandler(async (req, res) => {
 		// res.json({ message: 'login user' });
 		const { email, password } = req.body;
@@ -70,7 +70,7 @@ router.post(
 			res.status(400);
 			res.json({ message: 'User with this email is not found' });
 			// console.log(req.user);
-			console.log(error);
+			// console.log(error);
 		}
 	})
 );

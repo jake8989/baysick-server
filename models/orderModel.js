@@ -9,6 +9,11 @@ const orderSchema = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	customerId: {
+		type: String,
+		required: true,
+		unique: true,
+	},
 	paymentId: {
 		type: String,
 		require: true,
@@ -17,7 +22,10 @@ const orderSchema = mongoose.Schema({
 	totalAmount: {
 		type: Number,
 		required: true,
-		unique: true,
+	},
+	orderItems: {
+		type: Array,
+		required: true,
 	},
 	paymentStatus: {
 		type: String,
@@ -57,11 +65,11 @@ const orderSchema = mongoose.Schema({
 		type: String,
 		default: 'HOME ADDRESS',
 	},
-	DateOfOrderd: {
-		type: Date,
+	DateOfOrdered: {
+		type: String,
 	},
 	DateOfDelivery: {
-		type: Date,
+		type: String,
 	},
 	isDelivered: {
 		type: String,
