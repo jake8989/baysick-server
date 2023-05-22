@@ -9,13 +9,13 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const cors = require('cors');
 const port = process.env.PORT || 8080;
-connectDb();
-app.use(express.json());
 app.use(
 	cors({
-		origin: 'https://baysick-client-qvls0s782-jake8989.vercel.app',
+		allowedHeaders: ['Authorization', 'Content-Type'],
 	})
 );
+connectDb();
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', require('./routes/userRoute'));
 app.use('/api/products', require('./routes/productRoute'));
