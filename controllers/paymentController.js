@@ -1,5 +1,9 @@
 const Razorpay = require('razorpay');
 const dotenv = require('dotenv').config();
+const expres = require('express');
+const app = expres();
+const cors = require('cors');
+app.use(cors());
 module.exports.orders = async (req, res) => {
 	var instance = new Razorpay({
 		key_id: `${process.env.RAZORPAY_KEY_ID}`,

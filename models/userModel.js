@@ -30,5 +30,9 @@ const userSchema = mongoose.Schema({
 		type: Array,
 		default: [],
 	},
+	orders: {
+		type: Array,
+		default: [],
+	},
 });
 module.exports = mongoose.model('users', userSchema);

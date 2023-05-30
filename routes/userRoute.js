@@ -74,6 +74,34 @@ router.post(
 		}
 	})
 );
+router.post(
+	'/set-orders',
+	// protect,
+	asyncHandler(async (req, res) => {
+		// res.json({ message: 'login user' });
+		const { email, order_id } = req.body;
+		const user = await User.findOne({ email: email });
+		// req.user = user;
+		try {
+			if (user) {
+				res.status(200).json({
+					user,
+					message: 'logged in succesfully',
+					token: generateToken(user._id),
+				});
+				// localStorage.setItem('user', user);
+				// console.log('userRoutes', req.cookies);
+			} else {
+				throw new Error('User with this email is not found');
+			}
+		} catch (error) {
+			res.status(400);
+			res.json({ message: 'User Not Found' });
+			// console.log(req.user);
+			// console.log(error);
+		}
+	})
+);
 router.put(
 	'/update-user',
 	// protect,
