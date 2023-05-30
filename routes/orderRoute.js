@@ -9,7 +9,7 @@ const env = require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 router.get(
 	'/orders',
-	protect,
+	// protect,
 	asyncHandler(async (req, res) => {
 		// const {
 		// 	title,
@@ -28,15 +28,14 @@ router.get(
 		// 	isDelivered,
 		// } = req.body;
 		// console.log('try', req.user);
-		if (req.user.role == 'ADMIN') {
-			const orders = await Orders.find({});
-			res.status(200).json({ orders });
-		}
+
+		const orders = await Orders.find({});
+		res.status(200).json({ orders });
 	})
 );
 router.post(
 	'/add-order',
-	protect,
+	// protect,
 	asyncHandler(async (req, res) => {
 		const {
 			title,
@@ -114,7 +113,7 @@ router.post(
 // router.delete('/delete-order', protect);
 router.put(
 	'/update-order',
-	protect,
+	// protect,
 	asyncHandler(async (req, res) => {
 		const {
 			orderId,
@@ -128,30 +127,24 @@ router.put(
 			isDelivered,
 			isTrue,
 		} = req.body;
-		try {
-			if (req.user.role == 'ADMIN') {
-				// console.log('admin');
-				const order = await Orders.findOne({ orderId: orderId });
-				// console.log(order);
-				if (order) {
-					order.paymentStatus = paymentStatus;
-					order.modeOfPayment = modeOfPayment;
-					order.phone = phone;
-					order.totalAmount = totalAmount;
-					order.pincode = pincode;
-					order.AreaColony = AreaColony;
-					order.city = city;
-					order.isDelivered = isDelivered;
-					order.isTrue = isTrue;
-					await order.save();
-					res.status(200).json({ message: 'Order updated succesfully' });
-				} else {
-					// console.log('eoorr ');
-					throw Error('No Order found');
-				}
-			}
-		} catch (err) {
-			res.status(400).json({ message: 'No order found' });
+
+		const order = await Orders.findOne({ orderId: orderId });
+		// console.log(order);
+		if (order) {
+			order.paymentStatus = paymentStatus;
+			order.modeOfPayment = modeOfPayment;
+			order.phone = phone;
+			order.totalAmount = totalAmount;
+			order.pincode = pincode;
+			order.AreaColony = AreaColony;
+			order.city = city;
+			order.isDelivered = isDelivered;
+			order.isTrue = isTrue;
+			await order.save();
+			res.status(200).json({ message: 'Order updated succesfully' });
+		} else {
+			// console.log('eoorr ');
+			throw Error('No Order found');
 		}
 	})
 );

@@ -68,7 +68,7 @@ router.post(
 			}
 		} catch (error) {
 			res.status(400);
-			res.json({ message: 'User with this email is not found' });
+			res.json({ message: 'User Not Found' });
 			// console.log(req.user);
 			// console.log(error);
 		}
