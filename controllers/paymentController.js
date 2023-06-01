@@ -4,6 +4,11 @@ const expres = require('express');
 const app = expres();
 const cors = require('cors');
 app.use(cors());
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+
 const asyncHandler = require('express-async-handler');
 const paidOrder = require('../models/paidOrder');
 module.exports.orders = async (req, res) => {
@@ -49,6 +54,33 @@ module.exports.set = asyncHandler(async (req, res) => {
 			paymentId,
 			orderId,
 			signature,
+		});
+		const createTransporter = async () => {
+			const transporter = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+					type: 'OAuth2',
+					user: process.env.EMAIL,
+					pass: process.env.EMAIL_PASS,
+					clientId: process.env.CLIENT_ID,
+					clientSecret: process.env.CLIENT_SECRET,
+					refreshToken: process.env.REFRESH_TOKEN,
+				},
+			});
+
+			return transporter;
+		};
+
+		const sendEmail = async (emailOptions) => {
+			let emailTransporter = await createTransporter();
+			await emailTransporter.sendMail(emailOptions);
+		};
+
+		sendEmail({
+			subject: 'BaySick T-Shirts',
+			text: `Mr/Ms user Order Successfully Recieved By BaySick Team  \n Your Total order Amount is 900`,
+			to: 'jjk19106864@gmail.com',
+			from: process.env.EMAIL,
 		});
 		res.status(200).json({ message: 'PaidOrder created Successfully!' });
 		console.log(paid_order);
