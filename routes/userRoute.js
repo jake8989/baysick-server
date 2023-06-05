@@ -10,9 +10,8 @@ router.post(
 	'/signup',
 	// checkLoggedIn,
 	asyncHandler(async (req, res) => {
-		const { name, email, phone, password, strategy, likedItems, role } =
-			req.body;
-		console.log(name, email, phone, password, role);
+		const { name, email, phone, password } = req.body;
+		console.log(name, email, phone, password);
 		const userExits = await User.findOne({ email });
 		try {
 			if (userExits) {
