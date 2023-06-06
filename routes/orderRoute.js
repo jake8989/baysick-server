@@ -58,6 +58,7 @@ router.post(
 			DateOfOrdered,
 			DateOfDelivery,
 		} = req.body;
+		console.log('user', req.user);
 		const order = await Orders.create({
 			title: title,
 			orderId: orderId,

@@ -6,6 +6,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { protect } = require('../middlewares/auth');
 // const { protect } = require('../middlewares/authHandler');
+const cors = require('cors');
+const app = express();
+app.use(cors());
 router.post(
 	'/signup',
 	// checkLoggedIn,
@@ -13,6 +16,9 @@ router.post(
 		const { name, email, phone, password } = req.body;
 		console.log(name, email, phone, password);
 		const userExits = await User.findOne({ email });
+		const role = 'LOOK FOR';
+		const strategy = 'LOCAL';
+		const likedItems = [];
 		try {
 			if (userExits) {
 				res.status(400);
@@ -47,10 +53,13 @@ router.post(
 );
 router.post(
 	'/login',
-	// protect,
+	protect,
 	asyncHandler(async (req, res) => {
 		// res.json({ message: 'login user' });
-		const { email, password } = req.body;
+		const { email, secret, password } = req.body;
+		if (secret === undefined) {
+			secret = 'fool';
+		}
 		const user = await User.findOne({ email: email });
 		// req.user = user;
 		try {
