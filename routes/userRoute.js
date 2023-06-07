@@ -53,7 +53,7 @@ router.post(
 );
 router.post(
 	'/login',
-	protect,
+	// protect,
 	asyncHandler(async (req, res) => {
 		// res.json({ message: 'login user' });
 		const { email, secret, password } = req.body;
