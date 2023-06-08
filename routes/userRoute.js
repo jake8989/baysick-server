@@ -4,14 +4,8 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { protect } = require('../middlewares/auth');
-// const { protect } = require('../middlewares/authHandler');
-const cors = require('cors');
-const app = express();
-app.use(cors());
 router.post(
 	'/signup',
-	// checkLoggedIn,
 	asyncHandler(async (req, res) => {
 		const { name, email, phone, password } = req.body;
 		console.log(name, email, phone, password);
@@ -26,6 +20,7 @@ router.post(
 			}
 		} catch {
 			res.json({ message: 'email already exists' });
+			return;
 		}
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
@@ -56,10 +51,8 @@ router.post(
 	// protect,
 	asyncHandler(async (req, res) => {
 		// res.json({ message: 'login user' });
-		const { email, secret, password } = req.body;
-		if (secret === undefined) {
-			secret = 'fool';
-		}
+		const { email, password } = req.body;
+
 		const user = await User.findOne({ email: email });
 		// req.user = user;
 		try {
